@@ -131,8 +131,11 @@ class Slider {
     const range = this.container.querySelector(".range");
 
     range.addEventListener("mousedown", this.onRangeMouseDown.bind(this));
+    range.addEventListener("touchstart", this.onRangeMouseDown.bind(this));
     document.addEventListener("mousemove", this.onRangeMouseMove.bind(this));
+    document.addEventListener("touchmove", this.onRangeMouseMove.bind(this));
     document.addEventListener("mouseup", this.onRangeMouseUp.bind(this));
+    document.addEventListener("touchend", this.onRangeMouseUp.bind(this));
 
     this.drawRange();
   }
@@ -181,8 +184,11 @@ class Handle {
 
   attachListeners() {
     this.el.addEventListener("mousedown", this.onMouseDown.bind(this));
+    this.el.addEventListener("touchstart", this.onMouseDown.bind(this));
     document.addEventListener("mousemove", this.onMouseMove.bind(this));
+    document.addEventListener("touchmove", this.onMouseMove.bind(this));
     document.addEventListener("mouseup", this.onMouseUp.bind(this));
+    document.addEventListener("touchend", this.onMouseUp.bind(this));
   }
 
   onMouseUp() {
