@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Circular slider</title>
+    <link rel="stylesheet" href="slider.css" />
+  </head>
+  <body>
+    <main>
+      <div class="wrapper">
+        <div class="output">
+          <span id="start-value" class="value"></span>
+          <span id="end-value" class="value"></span>
+        </div>
+        <div class="container">
+          <svg height="360" width="360">
+            <circle
+              class="background"
+              cx="180"
+              cy="180"
+              r="148"
+              stroke="black"
+              stroke-width="64"
+              fill-opacity="0"
+            />
+            <path
+              class="range"
+              fill="none"
+              stroke="#2C2C2E"
+              stroke-width="48"
+            />
+          </svg>
+        </div>
+      </div>
+    </main>
+    <script src="slider.js"></script>
+  </body>
+</html>
