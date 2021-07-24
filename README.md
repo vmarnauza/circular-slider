@@ -7,4 +7,4 @@ A vanilla JS implementation of the circular bedtime slider in iOS.
 
 # The original
 
-![The original slider](./images/ios-original.jpeg?raw=true)
+![The original slider](./images/ios-original.jpeg?raw=true | width=200)
