@@ -27,6 +27,7 @@ function init() {
     updateValues(slider);
   };
   updateValues(slider);
+  preventRubberBandScrolling();
 }
 
 function updateValues(slider) {
@@ -78,7 +79,7 @@ class Slider {
   }
 
   onRangeMouseDown(event) {
-    const mousePosition = { x: event.clientX, y: event.clientY };
+    const mousePosition = getMousePosition(event);
 
     this.rangeDragStartAngle = findAngleBetweenPoints(
       this.center,
@@ -89,7 +90,7 @@ class Slider {
 
   onRangeMouseMove(event) {
     if (this.rangeDragged) {
-      const mousePosition = { x: event.clientX, y: event.clientY };
+      const mousePosition = getMousePosition(event);
       const angle = findAngleBetweenPoints(this.center, mousePosition);
       const delta = angle - this.rangeDragStartAngle;
 
@@ -172,7 +173,7 @@ class Handle {
 
   onMouseMove(event) {
     if (this.dragged) {
-      const mousePosition = { x: event.clientX, y: event.clientY };
+      const mousePosition = getMousePosition(event);
       const center = this.slider.center;
 
       this.angle = findAngleBetweenPoints(center, mousePosition);
@@ -214,6 +215,22 @@ class Handle {
 }
 
 /* utils */
+function preventRubberBandScrolling() {
+  document.body.addEventListener(
+    "touchmove",
+    (event) => {
+      event.preventDefault();
+    },
+    { passive: false }
+  );
+}
+
+function getMousePosition(event) {
+  return {
+    x: event.clientX || event.touches[0].clientX,
+    y: event.clientY || event.touches[0].clientY,
+  };
+}
 function normalizeAngle(angle) {
   if (angle < 0) {
     return 360 - (Math.abs(angle) % 360);
