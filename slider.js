@@ -12,11 +12,10 @@ const data = {
     },
   ],
 };
-const container = document.querySelector(".container");
 
 function init() {
   const slider = new Slider({
-    container,
+    container: document.querySelector(".container"),
     size: data.size,
     radius: data.radius,
     handleData: data.handles,
@@ -230,6 +229,7 @@ function getMousePosition(event) {
     y: event.clientY || event.touches[0].clientY,
   };
 }
+
 function normalizeAngle(angle) {
   if (angle < 0) {
     return 360 - (Math.abs(angle) % 360);
