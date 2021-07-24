@@ -74,6 +74,6 @@ main {
   transition: background-color 150ms ease-out;
 }
 
-.handle:active::before {
+.handle.active::before {
   background-color: #1c1c1e;
 }

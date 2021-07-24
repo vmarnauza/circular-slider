@@ -27,7 +27,6 @@ function init() {
     updateValues(slider);
   };
   updateValues(slider);
-  preventRubberBandScrolling();
 }
 
 function updateValues(slider) {
@@ -103,6 +102,8 @@ class Slider {
 
       this.rangeDragStartAngle = angle;
       this.onHandleUpdate();
+
+      event.preventDefault();
     }
   }
 
@@ -134,7 +135,9 @@ class Slider {
     range.addEventListener("mousedown", this.onRangeMouseDown.bind(this));
     range.addEventListener("touchstart", this.onRangeMouseDown.bind(this));
     document.addEventListener("mousemove", this.onRangeMouseMove.bind(this));
-    document.addEventListener("touchmove", this.onRangeMouseMove.bind(this));
+    document.addEventListener("touchmove", this.onRangeMouseMove.bind(this), {
+      passive: false,
+    });
     document.addEventListener("mouseup", this.onRangeMouseUp.bind(this));
     document.addEventListener("touchend", this.onRangeMouseUp.bind(this));
 
@@ -169,6 +172,7 @@ class Handle {
 
   onMouseDown() {
     this.dragged = true;
+    this.el.classList.add("active");
   }
 
   onMouseMove(event) {
@@ -180,20 +184,25 @@ class Handle {
 
       this.setPosition();
       this.onUpdate();
+
+      event.preventDefault();
     }
+  }
+
+  onMouseUp() {
+    this.dragged = false;
+    this.el.classList.remove("active");
   }
 
   attachListeners() {
     this.el.addEventListener("mousedown", this.onMouseDown.bind(this));
     this.el.addEventListener("touchstart", this.onMouseDown.bind(this));
     document.addEventListener("mousemove", this.onMouseMove.bind(this));
-    document.addEventListener("touchmove", this.onMouseMove.bind(this));
+    document.addEventListener("touchmove", this.onMouseMove.bind(this), {
+      passive: false,
+    });
     document.addEventListener("mouseup", this.onMouseUp.bind(this));
     document.addEventListener("touchend", this.onMouseUp.bind(this));
-  }
-
-  onMouseUp() {
-    this.dragged = false;
   }
 
   setPosition() {
@@ -215,16 +224,6 @@ class Handle {
 }
 
 /* utils */
-function preventRubberBandScrolling() {
-  document.body.addEventListener(
-    "touchmove",
-    (event) => {
-      event.preventDefault();
-    },
-    { passive: false }
-  );
-}
-
 function getMousePosition(event) {
   return {
     x: event.clientX || event.touches[0].clientX,
